@@ -1,0 +1,16 @@
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+NAME = rush-02
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+
+all : $(NAME)
+
+%.o : %.c
+	$(CC) -o $@ -c $< $(CFLAGS)
+
+$(NAME) : $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+fclean : all
+	rm -rf *.o

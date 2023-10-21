@@ -1,0 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_soluce.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svogrig <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/30 18:40:25 by svogrig           #+#    #+#             */
+/*   Updated: 2023/10/01 18:51:45 by svogrig          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+void	put_soluce(int soluce[4][4]);
+int		is_valide_possible_line(int array[4], int position);
+int		is_valide_line(int line[4], int view[4][4], int i_line);
+int		is_valid_soluce(int soluce[4][4], int view[4][4]);
+void	copy_int_array(int *src, int *dest, int size);
+
+int	is_valide_possible_line(int array[4], int position)
+{
+	int	i;
+
+	i = 0;
+	while (i < position)
+	{
+		if (array[i] == array[position])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	find_line(int posble_line[24][4], int *current_l, int work_l[4], int p)
+{
+	int	i;
+
+	i = 0;
+	while (i <= 3)
+	{
+		work_l[p] = i + 1;
+		if (is_valide_possible_line(work_l, p))
+		{
+			if (p == 3)
+			{
+				copy_int_array(work_l, posble_line[*current_l], 4);
+				*current_l = *current_l + 1;
+			}
+			else
+				find_line(posble_line, current_l, work_l, p + 1);
+		}
+		i++;
+	}
+}
+
+int	try(int soluce[4][4], int view[4][4], int possible_line[24][4], int depth)
+{
+	int	i;
+
+	i = 0;
+	while (i < 24)
+	{
+		copy_int_array(possible_line[i], soluce[depth], 4);
+		if (depth < 3)
+		{
+			if (try(soluce, view, possible_line, depth + 1))
+				return (1);
+		}
+		else
+		{
+			if (is_valid_soluce(soluce, view))
+			{
+				put_soluce(soluce);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	gen_possible_line(int possible_line[24][4])
+{
+	int	current_line;
+	int	*current_l;
+	int	work_l[4];
+
+	current_line = 0;
+	current_l = &current_line;
+	find_line(possible_line, current_l, work_l, 0);
+}
+
+int	find_soluce(int view[4][4], int soluce[4][4])
+{
+	int	possible_line[24][4];
+
+	gen_possible_line(possible_line);
+	return (try(soluce, view, possible_line, 0));
+}
