@@ -1,2 +1,3 @@
 gf2 => interface graphique pour gdb
 gef => extension de gdb pour reverse, affiche code assembleur avec mise en forme
+c_formatter_42 => mise a la norme du code c
