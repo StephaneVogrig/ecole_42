@@ -1,8 +1,12 @@
+### [Git](Git.md)
+
+# Branch
+
 #### List all branch
 ```bash
 git branch
 ```
-### Load a branch
+### Move on a branch
 ```bash
 git switch <name_branch>
 ```
@@ -20,4 +24,7 @@ ou
 ```bash
 git checkout -b <name_new_branch>
 ```
-#### 
+#### Pour pouvoir push une branche
+```
+git push --set-upstream origin <name-of-branch>
+```

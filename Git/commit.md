@@ -1,3 +1,7 @@
+### [Git](Git.md)
+
+# Commit
+
 Add file in stagging area
 ```
 git add <files>
